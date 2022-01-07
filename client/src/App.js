@@ -11,7 +11,7 @@ const App = () => {
         <div className="App-body">
           <Routes>
             <Route path="/" element={<TablePage />} />
-            <Route path="/row" element={<DetailsPage />}/>
+            <Route path="/details" element={<DetailsPage />}/>
             <Route path="/add" element={<NewRecordPage />}/>
           </Routes>
         </div>

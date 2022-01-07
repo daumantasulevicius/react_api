@@ -16,6 +16,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 const Table = ({ inputValues, setInputValues }) => {
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('http://localhost:8081/',)
@@ -27,6 +28,9 @@ const Table = ({ inputValues, setInputValues }) => {
       });
     }, []);
 
+    function getDetails(reqID){
+        navigate('/details', {state:{id: reqID}});
+    }
 return (
     <Paper>
         <TableContainer component={Paper}>
@@ -37,11 +41,6 @@ return (
             <TableCell align="right">Name</TableCell>
             <TableCell align="right">State ID</TableCell>
             <TableCell align="right">State Code</TableCell>
-            <TableCell align="right">Country ID</TableCell>
-            <TableCell align="right">Country Code</TableCell>
-            <TableCell align="right">Latitude</TableCell>
-            <TableCell align="right">Longitude ID</TableCell>
-            <TableCell align="right">Wiki Data ID</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -49,18 +48,14 @@ return (
             <TableRow
               key={key}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              onClick={() => getDetails(value.id)}
             >
               <TableCell component="th" scope="row">
-                {value.id}
+                {value.id} 
               </TableCell>
               <TableCell align="right">{value.name}</TableCell>
               <TableCell align="right">{value.state_id}</TableCell>
               <TableCell align="right">{value.state_code}</TableCell>
-              <TableCell align="right">{value.country_id}</TableCell>
-              <TableCell align="right">{value.country_code}</TableCell>
-              <TableCell align="right">{value.latitude}</TableCell>
-              <TableCell align="right">{value.longitude}</TableCell>
-              <TableCell align="right">{value.wikiDataId}</TableCell>
             </TableRow>
           ))}
         </TableBody>
