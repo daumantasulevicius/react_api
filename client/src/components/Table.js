@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import {
   Paper,
-  Box,
-  Grid,
-  TextField,
   Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +28,11 @@ const Table = ({ inputValues, setInputValues }) => {
     function getDetails(reqID){
         navigate('/details', {state:{id: reqID}});
     }
+    function goToAddPage(){
+        navigate('/add');
+    }
 return (
+    <div>
     <Paper>
         <TableContainer component={Paper}>
       <TableMUI sx={{ minWidth: 650 }} aria-label="simple table">
@@ -61,7 +62,14 @@ return (
         </TableBody>
       </TableMUI>
     </TableContainer>
+        
     </Paper>
+    <Button
+        variant = "contained"
+        onClick={() => goToAddPage()}>
+            Pridėti
+        </Button>
+    </div>
     );
 };
 
