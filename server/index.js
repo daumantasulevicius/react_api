@@ -37,6 +37,7 @@ app.get('/:id', function (req, res) {
 })
 
 app.post('/', function(req, res){
+	var json;
     var reqid = req.body.id;
 	var reqname = req.body.name;
 	var reqstate_id = req.body.state_id;
@@ -49,9 +50,9 @@ app.post('/', function(req, res){
 	
 	fs.readFile( __dirname + "/" + "cities.json", 'utf8', function (err, data) {
 		var cities = JSON.parse( data );
-		cities.push({id:reqid, state_id:reqstate_id, state_code:reqstate_code, country_id:reqcountry_id, country_code:reqcountry_code, latitude:reqlatitude, longitude:reqlongitude, wikiDataId:reqwikiDataId});
+		cities.push({id:reqid, name:reqname, state_id:reqstate_id, state_code:reqstate_code, country_id:reqcountry_id, country_code:reqcountry_code, latitude:reqlatitude, longitude:reqlongitude, wikiDataId:reqwikiDataId});
 		json = JSON.stringify(cities);
-		fs.writeFile('cities.json', json, 'utf8', callback);
+		fs.writeFileSync('cities.json', json);
 	});
     res.end(json);
 })
