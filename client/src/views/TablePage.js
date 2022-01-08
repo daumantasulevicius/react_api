@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Typography } from "@mui/material";
 
 import Table from "../components/Table";
 
@@ -10,6 +10,11 @@ const TablePage = () => {
 
   return (
     <div>
+      <div style={{backgroundColor: '#1976D2', borderBottomRightRadius: '10px', borderBottomLeftRadius: '10px'}}>
+      <Typography variant="h3" py={2} px={2} sx={{color: 'white'}}>
+        List Page
+        </Typography>
+        </div>
       <Grid
         container
         spacing={0}

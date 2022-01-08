@@ -88,28 +88,51 @@ const NewRecord = ({ inputValues, setInputValues }) => {
         }
       };
 
+    const handleInputChangeWiki = (e, field) => {
+        const input = e.target.value;
+    
+        //do some validation
+        if (!isValidWikiID(input)) {
+          setErrors({ ...errors, [field]: true });
+          setHelperTexts({
+            ...helperTexts,
+            [field]: "Please enter one letter and integers",
+          });
+        } else {
+          setErrors({ ...errors, [field]: false });
+          setHelperTexts({ ...helperTexts, [field]: DEFAULT_HELPERS[field] });
+          setInputValues({ ...inputValues, [field]: input });
+        }
+      };
+
     const isValidID = (str) => {
-        return /^[0-9]*$/.test(
+        return /^[0-9]/.test(
           str
         );
     };
     
     const isValidDecimal = (str) => {
-        return /^[-+]?\d*\.?\d*$/.test(
+        return /^[-+]?\d*\.?\d/.test(
             str
         );
     };
 
     const isValidLetters = (str) => {
-        return /^[a-zA-Z]*$/.test(
+        return /^[a-zA-Z]/.test(
             str
         );
     };
 
+    const isValidWikiID = (str) => {
+      return /^[a-zA-Z]+\d/.test(
+          str
+      );
+  };
+
     useEffect(() => {
         setButtonDisabled(
           Object.values(errors).some(Boolean) ||
-            Object.values(inputValues).some((i) => i === 0) 
+            Object.values(inputValues).some((i) => i === 0 || "") 
         );
       }, [errors, inputValues]);
 
@@ -138,7 +161,7 @@ const NewRecord = ({ inputValues, setInputValues }) => {
       <Box sx={{ padding: 2 }}>
         <FormControl>
           <Grid container>
-            <Grid item sm={16} py={1}>
+            <Grid item sm={16} py={0.5}>
               <TextField
                 label="Name"
                 variant="outlined"
@@ -149,7 +172,7 @@ const NewRecord = ({ inputValues, setInputValues }) => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={16} py={1}>
+            <Grid item sm={16} py={0.5}>
               <TextField
                 label="State ID"
                 variant="outlined"
@@ -160,7 +183,7 @@ const NewRecord = ({ inputValues, setInputValues }) => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={16} py={1}>
+            <Grid item sm={16} py={0.5}>
               <TextField
                 label="State Code"
                 variant="outlined"
@@ -171,7 +194,7 @@ const NewRecord = ({ inputValues, setInputValues }) => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={16} py={1}>
+            <Grid item sm={16} py={0.5}>
               <TextField
                 label="Country ID"
                 variant="outlined"
@@ -182,7 +205,7 @@ const NewRecord = ({ inputValues, setInputValues }) => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={16} py={1}>
+            <Grid item sm={16} py={0.5}>
               <TextField
                 label="Country Code"
                 variant="outlined"
@@ -193,7 +216,7 @@ const NewRecord = ({ inputValues, setInputValues }) => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={16} py={1}>
+            <Grid item sm={16} py={0.5}>
               <TextField
                 label="Latitude"
                 variant="outlined"
@@ -204,7 +227,7 @@ const NewRecord = ({ inputValues, setInputValues }) => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={16} py={1}>
+            <Grid item sm={16} py={0.5}>
               <TextField
                 label="Longitude"
                 variant="outlined"
@@ -215,14 +238,14 @@ const NewRecord = ({ inputValues, setInputValues }) => {
                 fullWidth
               />
             </Grid>
-            <Grid item sm={16} py={1}>
+            <Grid item sm={16} py={0.5}>
               <TextField
                 label="Wiki Data ID"
                 variant="outlined"
                 helperText={helperTexts.wikiData}
                 error={errors.wikiData}
                 required
-                onChange={(e) => handleInputChangeLetters(e, "wikiData")}
+                onChange={(e) => handleInputChangeWiki(e, "wikiData")}
                 fullWidth
               />
             </Grid>
