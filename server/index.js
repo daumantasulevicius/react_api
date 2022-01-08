@@ -37,8 +37,6 @@ app.get('/:id', function (req, res) {
 })
 
 app.post('/', function(req, res){
-	var json;
-    var reqid = req.body.id;
 	var reqname = req.body.name;
 	var reqstate_id = req.body.state_id;
 	var reqstate_code = req.body.state_code;
@@ -50,14 +48,27 @@ app.post('/', function(req, res){
 	
 	fs.readFile( __dirname + "/" + "cities.json", 'utf8', function (err, data) {
 		var cities = JSON.parse( data );
-		cities.push({id:reqid, name:reqname, state_id:reqstate_id, state_code:reqstate_code, country_id:reqcountry_id, country_code:reqcountry_code, latitude:reqlatitude, longitude:reqlongitude, wikiDataId:reqwikiDataId});
-		json = JSON.stringify(cities);
+		cities.push({
+			id:incrementID(cities), 
+			name:reqname, 
+			state_id:reqstate_id, 
+			state_code:reqstate_code, 
+			country_id:reqcountry_id, 
+			country_code:reqcountry_code, 
+			latitude:reqlatitude, 
+			longitude:reqlongitude, 
+			wikiDataId:reqwikiDataId});
+		var json = JSON.stringify(cities);
 		fs.writeFileSync('cities.json', json);
 	});
-    res.end(json);
+    res.end("Completed");
 })
 
-
+function incrementID(obj){
+	return (Math.max.apply(Math, obj.map(function(o) {
+		return o.id;
+	})) + 1);
+}
 
 
 var server = app.listen(8081, function () {

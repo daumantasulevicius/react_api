@@ -49,6 +49,7 @@ return (
             <TableRow
               key={key}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              hover="true"
               onClick={() => getDetails(value.id)}
             >
               <TableCell component="th" scope="row">
@@ -66,9 +67,10 @@ return (
     </Paper>
     <Button
         variant = "contained"
+        sx={{mt: 2}}
         onClick={() => goToAddPage()}>
             Pridėti
-        </Button>
+    </Button>
     </div>
     );
 };
