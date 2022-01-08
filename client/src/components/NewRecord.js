@@ -106,25 +106,25 @@ const NewRecord = ({ inputValues, setInputValues }) => {
       };
 
     const isValidID = (str) => {
-        return /^[0-9]/.test(
+        return /^[0-9]+$/.test(
           str
         );
     };
     
     const isValidDecimal = (str) => {
-        return /^[-+]?\d*\.?\d/.test(
+        return /^[-+]?\d*\.?\d+$/.test(
             str
         );
     };
 
     const isValidLetters = (str) => {
-        return /^[a-zA-Z]/.test(
+        return /^[a-zA-Z]+$/.test(
             str
         );
     };
 
     const isValidWikiID = (str) => {
-      return /^[a-zA-Z]+\d/.test(
+      return /^[a-zA-Z]+\d+$/.test(
           str
       );
   };
