@@ -48,7 +48,7 @@ return (
           {inputValues.data.map((value, key) => (
             <TableRow
               key={key}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: "pointer" }}
               hover="true"
               onClick={() => getDetails(value.id)}
             >

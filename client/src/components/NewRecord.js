@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Paper,
@@ -13,10 +13,105 @@ import { useNavigate } from "react-router-dom";
 const NewRecord = ({ inputValues, setInputValues }) => {
   
     const navigate = useNavigate();
-    const handleInputChange = (e, field) => {
+    const DEFAULT_HELPERS = {
+        name : "Enter a name",
+        stateID : "Enter a state id",
+        stateCode : "Enter a state code",
+        countryID : "Enter a country id",
+        countryCode : "Enter a country code",
+        latitude : "Enter latitude",
+        longitude : "Enter longitude",
+        wikiData : "Enter wiki data id"
+      };
+    
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+    const [errors, setErrors] = useState({
+        name : false,
+        stateID : false,
+        stateCode : false,
+        countryID : false,
+        countryCode : false,
+        latitude : false,
+        longitude : false,
+        wikiData : false
+    });
+    const [helperTexts, setHelperTexts] = useState(DEFAULT_HELPERS);
+
+    const handleInputChangeID = (e, field) => {
         const input = e.target.value;
-        setInputValues({ ...inputValues, [field]: input });
+    
+        //do some validation
+        if (!isValidID(input)) {
+          setErrors({ ...errors, [field]: true });
+          setHelperTexts({
+            ...helperTexts,
+            [field]: "Please enter a positive integer value",
+          });
+        } else {
+          setErrors({ ...errors, [field]: false });
+          setHelperTexts({ ...helperTexts, [field]: DEFAULT_HELPERS[field] });
+          setInputValues({ ...inputValues, [field]: input });
+        }
+      };
+
+    const handleInputChangeDecimal = (e, field) => {
+        const input = e.target.value;
+    
+        //do some validation
+        if (!isValidDecimal(input)) {
+          setErrors({ ...errors, [field]: true });
+          setHelperTexts({
+            ...helperTexts,
+            [field]: "Please enter a positive or negative decimal value",
+          });
+        } else {
+          setErrors({ ...errors, [field]: false });
+          setHelperTexts({ ...helperTexts, [field]: DEFAULT_HELPERS[field] });
+          setInputValues({ ...inputValues, [field]: input });
+        }
+      };
+
+    const handleInputChangeLetters = (e, field) => {
+        const input = e.target.value;
+    
+        //do some validation
+        if (!isValidLetters(input)) {
+          setErrors({ ...errors, [field]: true });
+          setHelperTexts({
+            ...helperTexts,
+            [field]: "Please enter only letters",
+          });
+        } else {
+          setErrors({ ...errors, [field]: false });
+          setHelperTexts({ ...helperTexts, [field]: DEFAULT_HELPERS[field] });
+          setInputValues({ ...inputValues, [field]: input });
+        }
+      };
+
+    const isValidID = (str) => {
+        return /^[0-9]*$/.test(
+          str
+        );
     };
+    
+    const isValidDecimal = (str) => {
+        return /^[-+]?\d*\.?\d*$/.test(
+            str
+        );
+    };
+
+    const isValidLetters = (str) => {
+        return /^[a-zA-Z]*$/.test(
+            str
+        );
+    };
+
+    useEffect(() => {
+        setButtonDisabled(
+          Object.values(errors).some(Boolean) ||
+            Object.values(inputValues).some((i) => i === 0) 
+        );
+      }, [errors, inputValues]);
 
     function postAPI(){
         axios.post('http://localhost:8081/', 
@@ -47,8 +142,10 @@ const NewRecord = ({ inputValues, setInputValues }) => {
               <TextField
                 label="Name"
                 variant="outlined"
+                helperText={helperTexts.name}
+                error={errors.name}
                 required
-                onChange={(e) => handleInputChange(e, "name")}
+                onChange={(e) => handleInputChangeLetters(e, "name")}
                 fullWidth
               />
             </Grid>
@@ -56,8 +153,10 @@ const NewRecord = ({ inputValues, setInputValues }) => {
               <TextField
                 label="State ID"
                 variant="outlined"
+                helperText={helperTexts.stateID}
+                error={errors.stateID}
                 required
-                onChange={(e) => handleInputChange(e, "stateID")}
+                onChange={(e) => handleInputChangeID(e, "stateID")}
                 fullWidth
               />
             </Grid>
@@ -65,8 +164,10 @@ const NewRecord = ({ inputValues, setInputValues }) => {
               <TextField
                 label="State Code"
                 variant="outlined"
+                helperText={helperTexts.stateCode}
+                error={errors.stateCode}
                 required
-                onChange={(e) => handleInputChange(e, "stateCode")}
+                onChange={(e) => handleInputChangeLetters(e, "stateCode")}
                 fullWidth
               />
             </Grid>
@@ -74,8 +175,10 @@ const NewRecord = ({ inputValues, setInputValues }) => {
               <TextField
                 label="Country ID"
                 variant="outlined"
+                helperText={helperTexts.countryID}
+                error={errors.countryID}
                 required
-                onChange={(e) => handleInputChange(e, "countryID")}
+                onChange={(e) => handleInputChangeID(e, "countryID")}
                 fullWidth
               />
             </Grid>
@@ -83,8 +186,10 @@ const NewRecord = ({ inputValues, setInputValues }) => {
               <TextField
                 label="Country Code"
                 variant="outlined"
+                helperText={helperTexts.countryCode}
+                error={errors.countryCode}
                 required
-                onChange={(e) => handleInputChange(e, "countryCode")}
+                onChange={(e) => handleInputChangeLetters(e, "countryCode")}
                 fullWidth
               />
             </Grid>
@@ -92,8 +197,10 @@ const NewRecord = ({ inputValues, setInputValues }) => {
               <TextField
                 label="Latitude"
                 variant="outlined"
+                helperText={helperTexts.latitude}
+                error={errors.latitude}
                 required
-                onChange={(e) => handleInputChange(e, "latitude")}
+                onChange={(e) => handleInputChangeDecimal(e, "latitude")}
                 fullWidth
               />
             </Grid>
@@ -101,8 +208,10 @@ const NewRecord = ({ inputValues, setInputValues }) => {
               <TextField
                 label="Longitude"
                 variant="outlined"
+                helperText={helperTexts.longitude}
+                error={errors.longitude}
                 required
-                onChange={(e) => handleInputChange(e, "longitude")}
+                onChange={(e) => handleInputChangeDecimal(e, "longitude")}
                 fullWidth
               />
             </Grid>
@@ -110,14 +219,17 @@ const NewRecord = ({ inputValues, setInputValues }) => {
               <TextField
                 label="Wiki Data ID"
                 variant="outlined"
+                helperText={helperTexts.wikiData}
+                error={errors.wikiData}
                 required
-                onChange={(e) => handleInputChange(e, "wikiData")}
+                onChange={(e) => handleInputChangeLetters(e, "wikiData")}
                 fullWidth
               />
             </Grid>
            </Grid>
           <Button
             type="submit"
+            disabled={buttonDisabled}
             onClick={() => postAPI()}
             sx={{ paddingTop: 2 }}
           >

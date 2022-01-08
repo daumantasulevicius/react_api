@@ -1,5 +1,5 @@
 [{
-        "id": 52,
+        "id": 1,
         "name": "Ashkāsham",
         "state_id": 3901,
         "state_code": "BDS",
@@ -9,7 +9,7 @@
         "longitude": "71.53333000",
         "wikiDataId": "Q4805192"
     }, {
-        "id": 68,
+        "id": 2,
         "name": "Fayzabad",
         "state_id": 3901,
         "state_code": "BDS",
@@ -19,7 +19,7 @@
         "longitude": "70.58002000",
         "wikiDataId": "Q156558"
     }, {
-        "id": 78,
+        "id": 3,
         "name": "Jurm",
         "state_id": 3901,
         "state_code": "BDS",
@@ -28,5 +28,49 @@
         "latitude": "36.86477000",
         "longitude": "70.83421000",
         "wikiDataId": "Q10308323"
+    },
+    {
+        "id": 4,
+        "name": "Dumas",
+        "state_id": 1444,
+        "state_code": "AR",
+        "country_id": 233,
+        "country_code": "US",
+        "latitude": "33.88705000",
+        "longitude": "-91.49179000",
+        "wikiDataId": "Q79316"
+    },
+    {
+        "id": 5,
+        "name": "Earle",
+        "state_id": 1444,
+        "state_code": "AR",
+        "country_id": 233,
+        "country_code": "US",
+        "latitude": "35.27509000",
+        "longitude": "-90.46677000",
+        "wikiDataId": "Q79615"
+    },
+    {
+        "id": 6,
+        "name": "East End",
+        "state_id": 1444,
+        "state_code": "AR",
+        "country_id": 233,
+        "country_code": "US",
+        "latitude": "34.55065000",
+        "longitude": "-92.34099000",
+        "wikiDataId": "Q2586305"
+    },
+    {
+        "id": 7,
+        "name": "El Dorado",
+        "state_id": 1444,
+        "state_code": "AR",
+        "country_id": 233,
+        "country_code": "US",
+        "latitude": "33.20763000",
+        "longitude": "-92.66627000",
+        "wikiDataId": "Q79489"
     }
 ]

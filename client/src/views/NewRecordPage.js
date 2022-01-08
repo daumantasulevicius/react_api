@@ -10,7 +10,7 @@ const NewRecordPage = () => {
         stateCode : "",
         countryID : 0,
         countryCode : "",
-        latititude : 0,
+        latitude : 0,
         longitude : 0,
         wikiData : ""
       });
